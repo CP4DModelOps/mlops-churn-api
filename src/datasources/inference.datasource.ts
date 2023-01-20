@@ -1,13 +1,11 @@
-import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
-import {juggler} from '@loopback/repository';
-
-
-const CPD_BASE_URL = process.env.CPD_BASE_URL;
+import { inject, lifeCycleObserver, LifeCycleObserver } from '@loopback/core';
+import { juggler } from '@loopback/repository';
+import { cpdConfig } from '../config';
 
 const config = {
   name: 'inference',
   connector: 'rest',
-  baseURL: CPD_BASE_URL,
+  baseURL: cpdConfig.baseUrl,
   options: {
     headers: {
       accept: 'application/json',
@@ -18,7 +16,7 @@ const config = {
     {
       template: {
         method: 'POST',
-        url: `${CPD_BASE_URL}/icp4d-api/v1/authorize`,
+        url: `${cpdConfig.baseUrl}/icp4d-api/v1/authorize`,
         body: {
           username: '{username:string}',
           password: '{password:string}'
@@ -34,7 +32,7 @@ const config = {
     {
       template: {
         method: 'POST',
-        url: `${CPD_BASE_URL}/ml/v4/deployments/{model:string}/predictions`,
+        url: `${cpdConfig.baseUrl}/ml/v4/deployments/{model:string}/predictions`,
         headers: {
           'Authorization': 'Bearer {token:string}'
         },
@@ -70,7 +68,7 @@ export class InferenceDataSource extends juggler.DataSource
   static readonly defaultConfig = config;
 
   constructor(
-    @inject('datasources.config.inference', {optional: true})
+    @inject('datasources.config.inference', { optional: true })
     dsConfig: object = config,
   ) {
     super(dsConfig);

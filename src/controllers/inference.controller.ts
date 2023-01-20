@@ -1,11 +1,11 @@
 import { inject } from "@loopback/core";
-import { post, param, requestBody, RequestBodyObject, response, ResponseObject } from "@loopback/rest";
+import { post, requestBody, RequestBodyObject, response, ResponseObject } from "@loopback/rest";
+import { cpdConfig } from "../config";
 import { Inference, Predictions } from "../services";
-
 
 interface PredictionsPayload {
   fields: string[],
-  values: (string|number)[][]
+  values: (string | number)[][]
 }
 
 /**
@@ -16,55 +16,58 @@ const PREDICTIONS_BODY: RequestBodyObject = {
   content: {
     'application/json': {
       schema: {
-        type: 'object',
-        title: 'PredictionsBody',
-        properties: {
-          fields: {
-            type: 'array',
-            example: [
-              "ID",
-              "LONGDISTANCE",
-              "INTERNATIONAL",
-              "LOCAL",
-              "DROPPED",
-              "PAYMETHOD",
-              "LOCALBILLTYPE",
-              "LONGDISTANCEBILLTYPE",
-              "USAGE",
-              "RATEPLAN",
-              "GENDER",
-              "STATUS",
-              "CHILDREN",
-              "ESTINCOME",
-              "CAROWNER",
-              "AGE"
-            ]
-          },
-          values: {
-            type: 'array',
-            items: {
+        type: 'array',
+        items: {
+          type: 'object',
+          title: 'PredictionsBody',
+          properties: {
+            fields: {
               type: 'array',
               example: [
-                1,
-                28,
-                0,
-                60,
-                0,
-                "Auto",
-                "FreeLocal",
-                "Standard",
-                89,
-                4,
-                "F",
-                "M",
-                1,
-                23000,
-                "N",
-                45
+                "ID",
+                "LONGDISTANCE",
+                "INTERNATIONAL",
+                "LOCAL",
+                "DROPPED",
+                "PAYMETHOD",
+                "LOCALBILLTYPE",
+                "LONGDISTANCEBILLTYPE",
+                "USAGE",
+                "RATEPLAN",
+                "GENDER",
+                "STATUS",
+                "CHILDREN",
+                "ESTINCOME",
+                "CAROWNER",
+                "AGE"
               ]
-            }
+            },
+            values: {
+              type: 'array',
+              items: {
+                type: 'array',
+                example: [
+                  1,
+                  28,
+                  0,
+                  60,
+                  0,
+                  "Auto",
+                  "FreeLocal",
+                  "Standard",
+                  89,
+                  4,
+                  "F",
+                  "M",
+                  1,
+                  23000,
+                  "N",
+                  45
+                ]
+              }
+            },
           },
-        },
+        }
       },
     },
   },
@@ -116,19 +119,15 @@ export class InferenceController {
   constructor(
     @inject('services.Inference')
     protected inferenceService: Inference,
-  ) {}
+  ) { }
 
   @post('/inference/predictions')
   @response(200, PREDICTIONS_RES)
   async getPredictions(
-    @requestBody(PREDICTIONS_BODY) payload: PredictionsPayload,
-    @param.query.string('username') username: string,
-    @param.query.string('password') password: string,
-    @param.query.string('model') model: string,
-    @param.query.string('version') version?: string,
+    @requestBody(PREDICTIONS_BODY) payload: Array<PredictionsPayload>,
   ): Promise<Predictions> {
-    const token: string = (await this.inferenceService.getToken(username, password)).token;
-    return this.inferenceService.getPredictions(model, version ?? (new Date()).toISOString().split('T')[0], [payload], token);
+    const token: string = (await this.inferenceService.getToken(cpdConfig.username, cpdConfig.password)).token;
+    return this.inferenceService.getPredictions(cpdConfig.model, cpdConfig.version ?? (new Date()).toISOString().split('T')[0], payload, token);
   }
 
 }
