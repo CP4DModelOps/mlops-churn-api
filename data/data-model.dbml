@@ -1,22 +1,22 @@
 Table customer {
-  id varchar [pk]
+  id integer [pk, increment]
   name varchar
   firstName varchar
   email varchar
   phoneNumber varchar
-  longDistance varchar
-  international varchar
-  local varchar
-  dropped varchar
+  longDistance integer
+  international integer
+  local integer
+  dropped integer
   payMethod varchar
   localBillType varchar
   longDistanceBillType varchar
-  usage varchar
-  ratePlan varchar
+  usage integer
+  ratePlan integer
   gender varchar
   status varchar
-  children varchar
-  estIncome varchar
+  children integer
+  estIncome integer
   carOwner varchar
-  age varchar
+  age integer
 }
