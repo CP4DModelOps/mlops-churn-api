@@ -34,7 +34,7 @@ oc login --token=${OCP_TOKEN} --server=${OCP_SERVER}
 1. Access your PostgreSQL deployment from your local machine using `oc port-forward`:
     ```sh
     oc login --token=${OCP_TOKEN} --server=${OCP_SERVER}
-    oc project ${OCP_PROJECT}``
+    oc project ${OCP_PROJECT}
     oc port-forward pg-postgresql-0 5432:5432
     ```
 2. On another terminal, open a PostgreSQL connection:
@@ -49,3 +49,37 @@ oc login --token=${OCP_TOKEN} --server=${OCP_SERVER}
     ```sh
     psql postgresql://postgres:${PG_PASSWORD}@localhost:5432/telco < data-model.sql
     ```
+
+### Try it out
+
+```sh
+npm run start
+```
+
+```sh
+$ curl -X 'POST' \
+  'http://localhost:3001/customers' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '  {
+    "firstName": "Josette",
+    "lastName": "Doe",
+    "email": "josette.doe@example.com",
+    "phoneNumber": "+33000000000",
+    "longDistance": 28,
+    "international": 0,
+    "local": 60,
+    "dropped": 0,
+    "payMethod": "Auto",
+    "localBillType": "FreeLocal",
+    "longDistanceBillType": "Standard",
+    "usage": 89,
+    "ratePlan": 4,
+    "gender": "F",
+    "status": "M",
+    "children": 1,
+    "estIncome": 23000,
+    "carOwner": "N",
+    "age": 45
+  }'
+```
