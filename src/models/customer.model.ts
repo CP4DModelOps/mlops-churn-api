@@ -4,8 +4,6 @@ import { Entity, model, property } from '@loopback/repository';
 export class Customer extends Entity {
   @property({
     type: 'number',
-    required: true,
-    scale: 0,
     generated: true,
     id: 1,
     postgresql: { columnName: 'id', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO', generated: undefined },
