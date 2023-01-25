@@ -13,16 +13,16 @@ export class Customer extends Entity {
   @property({
     type: 'string',
     generated: false,
-    postgresql: { columnName: 'name', dataType: 'character varying', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES', generated: undefined },
+    postgresql: { columnName: 'firstName', dataType: 'character varying', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES', generated: undefined },
   })
-  name?: string;
+  firstName?: string;
 
   @property({
     type: 'string',
     generated: false,
-    postgresql: { columnName: 'firstName', dataType: 'character varying', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES', generated: undefined },
+    postgresql: { columnName: 'lastName', dataType: 'character varying', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES', generated: undefined },
   })
-  firstName?: string;
+  lastName?: string;
 
   @property({
     type: 'string',

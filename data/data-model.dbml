@@ -1,7 +1,7 @@
 Table customer {
   id integer [pk, increment]
-  name varchar
   firstName varchar
+  lastName varchar
   email varchar
   phoneNumber varchar
   longDistance integer
