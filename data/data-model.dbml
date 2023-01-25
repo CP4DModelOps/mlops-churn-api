@@ -1,0 +1,22 @@
+Table customer {
+  id integer [pk, increment]
+  name varchar
+  firstName varchar
+  email varchar
+  phoneNumber varchar
+  longDistance integer
+  international integer
+  local integer
+  dropped integer
+  payMethod varchar
+  localBillType varchar
+  longDistanceBillType varchar
+  usage integer
+  ratePlan integer
+  gender varchar
+  status varchar
+  children integer
+  estIncome integer
+  carOwner varchar
+  age integer
+}
