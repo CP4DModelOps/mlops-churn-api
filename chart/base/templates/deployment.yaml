@@ -54,6 +54,9 @@ spec:
             httpGet:
               path: /health
               port: http
+          envFrom:
+            - secretRef:
+                name: mlops-churn-api-config
           env:
             - name: INGRESS_HOST
               value: ""
