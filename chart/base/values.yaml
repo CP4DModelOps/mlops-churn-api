@@ -40,8 +40,6 @@ vcsInfo:
   repoUrl: ""
   branch: ""
 
-partOf: ""
-
-connectsTo: ""
+partOf: customer-churn
 
 runtime: ""
