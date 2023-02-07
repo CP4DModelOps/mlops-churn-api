@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/nodejs-16:1-42
+FROM registry.access.redhat.com/ubi8/nodejs-16:1-82
 
 USER default
 
